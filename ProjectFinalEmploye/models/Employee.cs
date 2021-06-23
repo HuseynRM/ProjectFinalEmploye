@@ -7,7 +7,7 @@ namespace ProjectFinalEmploye.models
     class Employee
     {
        
-        public int No;
+        public string No;
         public static int Count { get; set; } = 1000;
         public string Name { get; set; }
         public string Fullname;
@@ -16,13 +16,13 @@ namespace ProjectFinalEmploye.models
         public string Position { get; set; }
         public double Salary { get; set; }
         public string DepartmentName { get; set; }
-        public Employee()
-        {
-            Count++;
-            No = Count;
+        //public Employee()
+        //{
+          //  Count++;
+            //No = Count;
            
-        }
-        public Employee(string name, string surname, string position, double salary, string departamentname):this()
+        //}
+        public Employee(string name, string surname, string position, double salary, string departamentname)
         {
             Name = name;
             Surname = surname;
@@ -30,7 +30,10 @@ namespace ProjectFinalEmploye.models
             Salary = salary;
             DepartmentName = departamentname;
             Fullname = name + " " + surname;
-            //fullname name ve surnameni qaytarmasi ucun kostraktorda assign etdim.
+            // funmame name ve surnameni qaytarsin deye asing etmishem 
+            Count++;
+            No = departamentname.ToString().Trim().ToUpper().Substring(0, 2) + Count.ToString();
+
         }
 
         public override string ToString()
