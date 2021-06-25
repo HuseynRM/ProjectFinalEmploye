@@ -11,8 +11,9 @@ namespace ProjectFinalEmploye.interfaces
         void AddDepartment(Department department);
         void GetDepartments();
         void EditDepartaments();
-        void AddEmployee(Employee employee);
+        void AddEmployee();
         void RemoveEmployee();
         void EditEmploye();
+        //interfade methodun body({}) hissesi olmmadiigindan servis classi yaradib interfaceni ora inhert edib implement edirik.
     }
 }
