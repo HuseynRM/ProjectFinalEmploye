@@ -8,7 +8,7 @@ namespace ProjectFinalEmploye
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //Employe clasinin ishlemesine dair numune :
 
@@ -24,21 +24,21 @@ namespace ProjectFinalEmploye
                     Console.WriteLine("Etmek Isdediyniz Emelliyyati Secin");
                     Console.WriteLine("------------------------------------");
                     Console.WriteLine("1.1 Departamentlerin siyahisini gostermek");
-                    Console.WriteLine("------------------------------------");
-                    Console.WriteLine("1.2 Departamenet yaratmaq");
-                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                    Console.WriteLine("1.2 Depart`amenet yaratmaq");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                     Console.WriteLine("1.3 Departamentde deyisiklik etmek");
-                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                     Console.WriteLine("2.1 Iscilerin siyahisini gostermek");
-                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                     Console.WriteLine("2.2 Departamentdeki iscilerin siyahisini gostermek");
-                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                     Console.WriteLine("2.3 Isci elave etmek");
-                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                     Console.WriteLine("2.4 Isci uzerinde deyisiklik etmek");
-                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                     Console.WriteLine("2.5 Departamentden isci silinmesi ");
-                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                     string answer = Console.ReadLine();
 
                     switch (answer)
@@ -53,16 +53,16 @@ namespace ProjectFinalEmploye
                             EditDepartment(humanResourceManager);
                             break;
                         case "2.1":
-                            ShowEmployes(humanResourceManager);
+                            ShowEmployees(humanResourceManager);
                             break;
                         case "2.2":
-                            ShowDepartmentEmployess(humanResourceManager);
+                            ShowDepartmentEmployees(humanResourceManager);
                             break;
                         case "2.3":
-                            AddEmploye(humanResourceManager);
+                            AddEmployee(humanResourceManager);
                             break;
                         case "2.4":
-                            Editemployee(humanResourceManager);
+                            EditEmployeea(humanResourceManager);
                             break;
                         case "2.5":
                             RemoveEmployee(humanResourceManager);
@@ -70,20 +70,25 @@ namespace ProjectFinalEmploye
                         default:
                             break;
                     }
+
                 } while (true);
+
+
             }
+
         }
         public static void GetDepartment(HumanResourceManager humanResourceManager)
         {
 
             foreach (Department item in humanResourceManager.departments)
             {
-                Console.WriteLine(item.Name);
-                Console.WriteLine(item.employees.Count);
-                Console.WriteLine(item.CalcSalaryAverage(item.employees));
+                Console.WriteLine($"Department name: {item.Name}, salary limit:{item.SalaryLimit}, Worker limit:{item.WorkerLimit},Avarage Salary:{item.CalcSalaryAvarege()}, Employees Count: {item.Employees.Count}");
+
             }
+
+
         }
-        public static void AddDepartment(HumanResourceManager humanResourceManager)
+        public static  void AddDepartment(HumanResourceManager humanResourceManager)
         {
             bool nameloop = true;
             bool workerlimitloop = true;
@@ -155,10 +160,10 @@ namespace ProjectFinalEmploye
                 }
             }
             Department department = new Department(departmentname, departmentworkerlimit, departmentsalarylimit);
-            humanResourceManager.AddDepartment(department);
+            humanResourceManager.departments.Add(department);
 
         }
-        public static void EditDepartment(HumanResourceManager humanresourcemanager)
+        public static void EditDepartment(HumanResourceManager humanResourceManager)
         {
 
             string olddepartmentname = "";
@@ -166,22 +171,21 @@ namespace ProjectFinalEmploye
             int newworkerlimit = 0;
             double newsalarylimit = 0;
             bool oldloop = true;
-            bool loop1 = true;
-            bool loop2 = true;
-            bool loop3 = true;
+            bool departmentnameloop = true;
+            bool workerlimitloop = true;
+            bool salarylimitloop = true;
             Console.WriteLine("Deyisdirmek istediyiniz Departmentin adin daxil edin.");
             while (oldloop)
             {
                 try
                 {
                     olddepartmentname = Console.ReadLine();
-                    Department department123 = humanresourcemanager.departments.Find(x => x.Name == olddepartmentname);
-                    //bunu yoxla error ola biler!!!
+                    Department department123 = humanResourceManager.departments.Find(x => x.Name == olddepartmentname);
                     if (department123 != null)
                     {
                         Console.WriteLine($"{department123.Name} {department123.WorkerLimit} {department123.SalaryLimit}");
                         Console.WriteLine("Departmentin yeni adin daxil edin.");
-                        while (loop1)
+                        while (departmentnameloop)
                         {
                             try
                             {
@@ -189,7 +193,7 @@ namespace ProjectFinalEmploye
                                 if (string.IsNullOrEmpty(newdepartmentname) == false && newdepartmentname.Length >= 2)
                                 {
                                     department123.Name = newdepartmentname;
-                                    loop1 = false;
+                                    departmentnameloop = false;
                                 }
                                 else
                                 {
@@ -204,7 +208,7 @@ namespace ProjectFinalEmploye
 
                         }
                         Console.WriteLine("Departmentin yeni workerlimitin daxil edin.");
-                        while (loop2)
+                        while (workerlimitloop)
                         {
                             try
                             {
@@ -212,7 +216,7 @@ namespace ProjectFinalEmploye
                                 if (newworkerlimit >= 2)
                                 {
                                     department123.WorkerLimit = newworkerlimit;
-                                    loop2 = false;
+                                    workerlimitloop = false;
                                 }
                                 else
                                 {
@@ -226,7 +230,7 @@ namespace ProjectFinalEmploye
                             }
                         }
                         Console.WriteLine("Yeni SalaryLimit daxil edin.");
-                        while (loop3)
+                        while (salarylimitloop)
                         {
                             try
                             {
@@ -234,7 +238,7 @@ namespace ProjectFinalEmploye
                                 if (newsalarylimit >= 250)
                                 {
                                     department123.SalaryLimit = newsalarylimit;
-                                    loop3 = false;
+                                    salarylimitloop = false;
                                 }
                                 else
                                 {
@@ -265,40 +269,50 @@ namespace ProjectFinalEmploye
 
 
         }
-        public static void ShowEmployes(HumanResourceManager humanresourcemanager)
+        public static void ShowEmployees(HumanResourceManager humanResourceManager)
         {
-            foreach (Department item in humanresourcemanager.departments)
+            foreach (Department item in humanResourceManager.departments)
             {
-                foreach (Employee employee in item.employees)
+                foreach (Employee employee in item.Employees)
                 {
-                    Console.WriteLine(employee.No, employee.Fullname, employee.Salary, employee.DepartmentName);
+                    Console.WriteLine($"{employee.No},{employee.Fullname},{employee.DepartmentName},{employee.Salary}");
                 }
             }
         }
-        public static void ShowDepartmentEmployess(HumanResourceManager humanresourcemanager)
+        public static void ShowDepartmentEmployees(HumanResourceManager humanResourceManager)
         {
-            Console.WriteLine("Iscilerin siyahisini gosdermek isdediyiniz departamentin adin yazin !!! ");
+
+            Console.WriteLine("Iscilerin siyahsini gostermek istediyiniz departmentin adin yazin!!!");
             string departmentname = Console.ReadLine();
-            Department department = humanresourcemanager.departments.Find(n => n.Name == departmentname);
-            foreach (Employee item in department.employees)
+            Department department = humanResourceManager.departments.Find(x => x.Name == departmentname);
+            try
             {
-                Console.WriteLine(item.No, item.Name, item.Position, item.Salary);
+                foreach (Employee item in department.Employees)
+                {
+                    Console.WriteLine($"{item.No},{item.Name},{item.Surname},{item.Position},{item.Salary}");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("Department adini duz yazin");
             }
         }
-        public static void AddEmploye(HumanResourceManager humanresourcemanager)
+        public static void AddEmployee(HumanResourceManager humanResourceManager)
         {
-            Console.WriteLine("Yeni iscinin adin  elave edin : ");
+            Console.WriteLine("Yeni iscinin adin daxil edin.");
             string newemployeename = Console.ReadLine();
-            Console.WriteLine("yeni iscinin soyadini elave edin : ");
+            Console.WriteLine("Yeni iscinin soyadin daxil edin. ");
             string newemployeesurname = Console.ReadLine();
+
             string newemployeeposition = "";
             double newemployeesalary = 0;
-            string newemplyoeedepartamentname = "";
+            string newemployeedepartmentname = "";
             bool positionloop = true;
-            bool departamentloop = true;
             bool salaryloop = true;
-            bool nameloop = true;
-            Console.WriteLine("Yeni iscinin vezifesini daxil edin ");
+            bool departmentnameloop = true;
+            Console.WriteLine("Yeni iscinin vezifesini daxil edin.");
             while (positionloop)
             {
                 try
@@ -315,11 +329,10 @@ namespace ProjectFinalEmploye
                 }
                 catch (Exception)
                 {
-
-                    Console.WriteLine("Duzgun yeni isci vezifesi daxil edin !!! ");
+                    Console.WriteLine("Duzgun Yeni iscinin vezifesini daxil edin.");
                 }
             }
-            Console.WriteLine("Yeni isci maasi daxil edin !!! ");
+            Console.WriteLine("Yeni iscinin maasini daxil edin.");
             while (salaryloop)
             {
                 try
@@ -336,68 +349,67 @@ namespace ProjectFinalEmploye
                 }
                 catch (Exception)
                 {
-
-                    Console.WriteLine("Duzgun yeni maas daxil edin !!! ");
+                    Console.WriteLine("Duzgun yeni iscinin maasini daxil edin.");
                 }
             }
-            Console.WriteLine("YEni iscinin departament adini daxil edin !!! ");
-            while (departamentloop)
+            Console.WriteLine("Yeni iscinin department adini daxil edin.");
+            while (departmentnameloop)
             {
                 try
                 {
-                    newemplyoeedepartamentname = Console.ReadLine();
-                    if (string.IsNullOrEmpty(newemplyoeedepartamentname) == false && newemplyoeedepartamentname.Length >= 2)
+                    newemployeedepartmentname = Console.ReadLine();
+                    if (string.IsNullOrEmpty(newemployeedepartmentname) == false && newemployeedepartmentname.Length >= 2)
                     {
-                        Department newemployedepartment = humanresourcemanager.departments.Find(a => a.Name == newemplyoeedepartamentname);
-                        departamentloop = false;
+                        Department department = humanResourceManager.departments.Find(a => a.Name == newemployeedepartmentname);
+                        if (department != null)
+                        {
+                            Employee newemployee = new Employee(newemployeename, newemployeesurname, newemployeeposition, newemployeesalary, department.Name);
+                            department.Employees.Add(newemployee);
+                            //humanResourceManager.departments.Add(department);
+                        }
                     }
                     else
                     {
                         throw new Exception();
                     }
+                    departmentnameloop = false;
                 }
                 catch (Exception)
                 {
-
-                    Console.WriteLine("Duzgun yeni departament adi daxil edin !!! ");
+                    Console.WriteLine("Duzgun yeni iscinin department adini daxil edin.");
                 }
             }
-            Department department = humanresourcemanager.departments.Find(a => a.Name == newemployeename);
-            Employee newemployee = new Employee(newemployeename, newemployeesurname, newemployeeposition, newemployeesalary, newemplyoeedepartamentname);
-            department.employees.Add(newemployee);
-        }
 
-        public static void Editemployee(HumanResourceManager humanresourcemanager)
+        }
+        public static void EditEmployeea(HumanResourceManager humanResourceManager)
         {
             bool noloop = true;
-            bool editsalary = true;
             bool newsalaryloop = true;
             bool newpositionloop = true;
             string editno = "";
             double newsalary = 0;
             string newposition = "";
-
-            Console.WriteLine("deyishmek isdediyiniz iscinin Nomresini yazin!!!");
+            Console.WriteLine("Deyismek istediyiniz iscinin Nomresin yazin !!! ");
             while (noloop)
             {
                 try
                 {
                     editno = Console.ReadLine();
-                    foreach (Department item in humanresourcemanager.departments)
+                    foreach (Department item in humanResourceManager.departments)
                     {
-                        Employee currentempoyee = item.employees.Find(a => a.No == editno);
-                        if (currentempoyee != null)
+                        Employee currentemployee = item.Employees.Find(a => a.No == editno);
+                        if (currentemployee != null)
                         {
-                            Console.WriteLine($"{currentempoyee.Fullname} {currentempoyee.Salary} {currentempoyee.Position}");
-                            Console.WriteLine("iscinin yeni maasini daxil edin ");
-                            while (editsalary)
+                            Console.WriteLine($"{currentemployee.Fullname},{currentemployee.Salary},{currentemployee.Position}");
+                            Console.WriteLine("Iscinin yeni maasini daxil edin.");
+                            while (newsalaryloop)
                             {
                                 try
                                 {
                                     newsalary = double.Parse(Console.ReadLine());
                                     if (newsalary >= 250)
                                     {
-                                        currentempoyee.Salary = newsalary;
+                                        currentemployee.Salary = newsalary;
                                         newsalaryloop = false;
                                     }
                                     else
@@ -407,11 +419,10 @@ namespace ProjectFinalEmploye
                                 }
                                 catch (Exception)
                                 {
-
-                                    Console.WriteLine("Duzgun iscinin maasini daxil edin !!! ");
+                                    Console.WriteLine(" iscinin yeni maasini Duzgun daxil edin.");
                                 }
                             }
-                            Console.WriteLine("Iscinin yeni vezifesini daxil edin !!! ");
+                            Console.WriteLine("Iscinin yeni vezifesini daxil edin.");
                             while (newpositionloop)
                             {
                                 try
@@ -419,7 +430,7 @@ namespace ProjectFinalEmploye
                                     newposition = Console.ReadLine();
                                     if (string.IsNullOrEmpty(newposition) == false && newposition.Length >= 2)
                                     {
-                                        currentempoyee.Position = newposition;
+                                        currentemployee.Position = newposition;
                                         newpositionloop = false;
                                     }
                                     else
@@ -429,22 +440,18 @@ namespace ProjectFinalEmploye
                                 }
                                 catch (Exception)
                                 {
-
-                                    Console.WriteLine("iscinin yeni vezifesini daxil edin!!!");
+                                    Console.WriteLine("Iscinin yeni vezifesini Duzgun wdaxil edin.");
                                 }
                             }
-                        }
-                        else
-                        {
-                            noloop = false;
                         }
                     }
                 }
                 catch (Exception)
                 {
 
-                    Console.WriteLine("iscinin duzgun nomresini daxil edin !!!");
+                    Console.WriteLine("Duzgun Nomre daxil edin.");
                 }
+                noloop = false;
             }
 
         }
@@ -463,6 +470,7 @@ namespace ProjectFinalEmploye
                     if (string.IsNullOrEmpty(departmentname) == false && departmentname.Length >= 2)
                     {
                         Department removedepartment = humanResourceManager.departments.Find(x => x.Name == departmentname);
+                        Console.WriteLine("Ishcinin nomresini yazin");
                         while (noloop)
                         {
                             try
@@ -470,10 +478,10 @@ namespace ProjectFinalEmploye
                                 employeeno = Console.ReadLine();
                                 foreach (Department item in humanResourceManager.departments)
                                 {
-                                    Employee removeemploye = item.employees.Find(x => x.No == employeeno);
+                                    Employee removeemploye = item.Employees.Find(x => x.No == employeeno);
                                     if (removeemploye != null)
                                     {
-                                        removedepartment.employees.Remove(removeemploye);
+                                        removedepartment.Employees.Remove(removeemploye);
                                         noloop = false;
                                     }
                                     else

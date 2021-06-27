@@ -9,32 +9,43 @@ namespace ProjectFinalEmploye.models
         public string Name { get; set; }
         public int WorkerLimit { get; set; }
         public double SalaryLimit { get; set; }
-        
-        public List<Employee> employees { get; set; }
-        public object Employes { get; internal set; }
+        public List<Employee> Employees { get; set; }
 
-        public Department(string name, int workerlimit , double salarylimit)
+        public Department(string name, int workerlimit, double salarylimit)
         {
+            Employees = new List<Employee>();
             Name = name;
             WorkerLimit = workerlimit;
             SalaryLimit = salarylimit;
         }
-        public Department()
-        {
 
-        }
 
-        public double CalcSalaryAverage(List<Employee> employees)
+
+        public double CalcSalaryAvarege()
         {
-            double resault = 0;
+            double avarage = 0;
             double sum = 0;
-            foreach (Employee item in employees)
+            //Bura geri don Pervin Muellim problem boslug
+            foreach (Employee item in Employees)
             {
                 sum += item.Salary;
             }
-            resault = sum / employees.Count;
-            return resault;
-            //departamentdeki ishcilerin maashlarinin ortalama hesablanmasi:
+            if (Employees.Count != 0)
+            {
+                avarage = sum / Employees.Count;
+                return avarage;
+            }
+            else
+            {
+                return 0;
+            }
+            //Departmentdeki Iscilerin maas ortalamasinin hesablanmasi
+
+        }
+
+        internal int CalcSalaryAvarege(string name)
+        {
+            throw new NotImplementedException();
         }
     }
 }

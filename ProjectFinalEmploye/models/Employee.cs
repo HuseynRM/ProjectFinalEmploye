@@ -6,6 +6,8 @@ namespace ProjectFinalEmploye.models
 {
     class Employee
     {
+        // employe klasini yaradib prop ve fieldlerini yaziriq konstruktor yaradiriq ve name ve surnameni fullnamede birlesdirmek ve
+        // unikal nomrenin yaziriq. to string methoduyla verdiyimiz deyerleri qaytaririrq.
        
         public string No;
         public static int Count { get; set; } = 1000;
@@ -16,12 +18,6 @@ namespace ProjectFinalEmploye.models
         public string Position { get; set; }
         public double Salary { get; set; }
         public string DepartmentName { get; set; }
-        //public Employee()
-        //{
-          //  Count++;
-            //No = Count;
-           
-        //}
         public Employee(string name, string surname, string position, double salary, string departamentname)
         {
             Name = name;
@@ -33,6 +29,7 @@ namespace ProjectFinalEmploye.models
             // funmame name ve surnameni qaytarsin deye asing etmishem 
             Count++;
             No = departamentname.ToString().Trim().ToUpper().Substring(0, 2) + Count.ToString();
+            
 
         }
 

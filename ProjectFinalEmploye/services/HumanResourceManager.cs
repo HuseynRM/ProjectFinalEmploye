@@ -17,12 +17,13 @@ namespace ProjectFinalEmploye.services
         public HumanResourceManager()
         {
             departments = new List<Department>();
+            Employees = new List<Employee>();  
             
         }
 
-        public void AddDepartment(Department department)
+        public void AddDepartment()
         {
-            departments.Add(department);
+            throw new NotImplementedException();
         }
 
         public void GetDepartments()
